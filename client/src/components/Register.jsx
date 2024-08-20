@@ -50,6 +50,14 @@ const Register = () => {
         setTimeout(() => {
           navigate("/");
         }, 5000);
+        setInputValue({
+          ...inputValue,
+          email: "",
+          fname: "",
+          lname: "",
+          password: "",
+          username: "",
+        });
       } else {
         handleError(message);
       }
