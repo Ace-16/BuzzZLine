@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../actions";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -14,6 +16,8 @@ const Register = () => {
     username: "",
   });
   const { email, fname, lname, password, username } = inputValue;
+  const dispatch = useDispatch();
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -44,12 +48,14 @@ const Register = () => {
         },
         { withCredentials: true }
       );
-      const { success, message } = data;
+      const { success, message, user } = data;
       if (success) {
+        dispatch(registerUser(user));
+        localStorage.setItem("user", JSON.stringify(user));
         handleSuccess(message);
         setTimeout(() => {
           navigate("/");
-        }, 5000);
+        }, 2000);
         setInputValue({
           ...inputValue,
           email: "",
@@ -64,14 +70,6 @@ const Register = () => {
     } catch (error) {
       console.log(error);
     }
-    setInputValue({
-      ...inputValue,
-      email: "",
-      fname: "",
-      lname: "",
-      password: "",
-      username: "",
-    });
   };
 
   return (

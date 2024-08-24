@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../actions";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ const Login = () => {
     password: "",
   });
   const { email, password } = inputValue;
+  const dispatch = useDispatch();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -51,8 +54,10 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      const { success, message } = data;
+      const { success, message, user } = data;
       if (success) {
+        dispatch(loginUser(user));
+        localStorage.setItem("user", JSON.stringify(user));
         handleSuccess(message);
         setTimeout(() => {
           navigate("/");

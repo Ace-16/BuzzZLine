@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 import Newsfeed from "./Newsfeed";
 import Chatlist from "./Chatlist";
@@ -10,7 +11,7 @@ import Chatlist from "./Chatlist";
 const Home = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
-  const [username, setUsername] = useState("");
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const verifyCookie = async () => {
@@ -23,8 +24,6 @@ const Home = () => {
         { withCredentials: true }
       );
       const { status, user } = data;
-      console.log(user);
-      setUsername(user);
       return status
         ? toast(`Hello ${user}`, {
             position: "top-right",
@@ -38,10 +37,10 @@ const Home = () => {
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
-
+  console.log(user);
   return (
     <div className="grid grid-cols-12 pt-24 px-5 h-dvh bg-lighter-purple">
-      <div>Hello {username}</div>
+      <div>Hello {user ? user.username : "Guest"}</div>
       <div className="col-span-3">
         <Chatlist />
       </div>
