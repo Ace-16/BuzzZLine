@@ -40,7 +40,6 @@ const Home = () => {
   console.log(user);
   return (
     <div className="grid grid-cols-12 pt-24 px-5 h-dvh bg-lighter-purple">
-      <div>Hello {user ? user.username : "Guest"}</div>
       <div className="col-span-3">
         <Chatlist />
       </div>
