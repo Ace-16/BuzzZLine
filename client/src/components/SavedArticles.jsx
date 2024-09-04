@@ -7,7 +7,7 @@ const SavedArticles = () => {
   let articles = user.savedArticles;
   useEffect(() => {
     console.log(articles);
-  }, [user]);
+  }, [user, articles]);
 
   return (
     <div className="flex h-min bg-light-purple">

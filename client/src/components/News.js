@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
 
 import { toast, ToastContainer } from "react-toastify";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../actions";
 
 const News = ({ article, articleState }) => {
-  const user = useSelector((state) => state.auth.user);
   const userId = useSelector((state) => state.auth.user._id);
   const savedArticles = useSelector((state) => state.auth.user.savedArticles);
   const dispatch = useDispatch();
