@@ -33,7 +33,7 @@ const Newsfeed = () => {
   }, []);
 
   return (
-    <div className="text-darker-purple font-BodyFont p-5 h-[80vh]">
+    <div className="text-darker-purple font-BodyFont p-5 h-[84vh]">
       {loading ? (
         <div className="loading-screen text-center text-xl">Loading...</div>
       ) : error ? (
@@ -42,7 +42,7 @@ const Newsfeed = () => {
         <div className="overflow-y-scroll h-full p-4 border rounded-lg bg-dark-purple shadow-md">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {articles.map((article, index) => (
-              <News key={index} article={article} />
+              <News key={index} article={article} articleState={true} />
             ))}
           </div>
         </div>

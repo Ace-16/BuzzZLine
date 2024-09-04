@@ -17,3 +17,10 @@ export const logoutUser = () => {
     type: "LOGOUT_USER",
   })
 }
+
+export const getUser = (userData) => {
+  return({
+    type: "GET_USER",
+    payload: userData,
+  })
+}

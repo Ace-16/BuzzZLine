@@ -3,15 +3,17 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Newsfeed from "./Newsfeed";
 import Chatlist from "./Chatlist";
+import { getUser } from "../actions";
 
 const Home = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const verifyCookie = async () => {
@@ -24,8 +26,10 @@ const Home = () => {
         { withCredentials: true }
       );
       const { status, user } = data;
+      const { username } = user;
+      dispatch(getUser(user));
       return status
-        ? toast(`Hello ${user}`, {
+        ? toast(`Hello ${username}`, {
             position: "top-right",
             className:
               "bg-green-500 text-white font-semibold px-4 py-2 rounded-lg shadow-lg",
@@ -36,7 +40,7 @@ const Home = () => {
         : (removeCookie("token"), navigate("/login"));
     };
     verifyCookie();
-  }, [cookies, navigate, removeCookie]);
+  }, [cookies, navigate, removeCookie, dispatch]);
   console.log(user);
   return (
     <div className="grid grid-cols-12 pt-24 px-5 h-dvh bg-lighter-purple">

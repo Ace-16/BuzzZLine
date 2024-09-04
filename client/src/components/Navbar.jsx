@@ -17,7 +17,9 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="nav_menu flex mr-4">
-        <FaNewspaper className="text-4xl text-lighter-purple mt-5 mx-4" />
+        <Link to="/savedArtclies">
+          <FaNewspaper className="text-4xl text-lighter-purple mt-5 mx-4" />
+        </Link>
         <FaSignalMessenger className="text-4xl text-lighter-purple mt-5 mx-4" />
         <Link to={"/login"}>
           <img className="h-20 py-1" src={logo} alt="This is the logo" />

@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+const articleSchema = new mongoose.Schema({
+  title: String,
+  urlToImage: String,
+  description: String,
+  url: String,
+})
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -21,8 +28,11 @@ const userSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: Date.now,
   },
+  savedArticles: {
+    type: [articleSchema],
+  }
 });
 
 userSchema.pre("save", async function () {
